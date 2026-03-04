@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+
 let productsHtml = '';
 
 products.forEach((product)=> {
@@ -63,7 +65,7 @@ innerHTML = productsHtml
 document.querySelectorAll('.js-add-to-card').
 forEach((button)=> {
     button.addEventListener('click', ()=> {
-        const productId = button.dataset.productCart;
+        const productId = button.dataset.productId;
 
         let matchingItem;
 
