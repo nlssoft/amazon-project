@@ -1,23 +1,31 @@
-import {cart, removeCartitem} from "../data/cart.js";
-import {products} from "../data/products.js";
+import { cart, removeCartitem } from "../data/cart.js";
+import { products } from "../data/products.js";
 import { fromatCurency } from "./utils/money.js";
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+
+const today = dayjs();
+let deliveryDate = today.add(7, 'days');
+
+
+console.log(deliveryDate.format('dddd MMMM D'));
+console.log(today);
 
 
 let cartSummaryHtml = '';
 
-cart.forEach((cartItem)=> {
+cart.forEach((cartItem) => {
 
     const productId = cartItem.productId;
 
 
     let matchingProduct;
 
-    products.forEach((product)=> {
-        if (product.id === productId){
+    products.forEach((product) => {
+        if (product.id === productId) {
             matchingProduct = product;
         }
 
-        
+
     })
 
     cartSummaryHtml += `
@@ -105,20 +113,20 @@ cart.forEach((cartItem)=> {
 });
 
 document.querySelector('.js-order-summary').
-innerHTML = cartSummaryHtml
+    innerHTML = cartSummaryHtml
 
 document.querySelectorAll('.js-delete-cart-item')
-.forEach((link)=> {
-    link.addEventListener('click', ()=> {
-        const productId = link.dataset.deleteId;
-        removeCartitem(productId);
+    .forEach((link) => {
+        link.addEventListener('click', () => {
+            const productId = link.dataset.deleteId;
+            removeCartitem(productId);
 
-        let container = document.querySelector(`.js-cart-item-container-${productId}`);
-        if (container) container.remove();
+            let container = document.querySelector(`.js-cart-item-container-${productId}`);
+            if (container) container.remove();
 
 
+
+        })
 
     })
-
-})
 
