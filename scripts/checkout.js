@@ -26,15 +26,24 @@ cart.forEach((cartItem) => {
 
     const deliveryOptionId = cartItem.deliveryOptionId;
 
-    let deliverOption;
+    let deliveryOption;
 
-    deliveryOptions.forEach()
+    deliveryOptions.forEach((option) => {
+        if (option.id === deliveryOptionId) {
+            deliveryOption = option;
+        }
+    })
+
+    const today = dayjs();
+    let deliveryDate = today.add(deliveryOption.deliverDays, 'days');
+    const stringDate = deliveryDate.format('dddd, MMMM D');
+
 
     cartSummaryHtml += `
     <div class="cart-item-container  
     js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">
-            Delivery date: Tuesday, June 21
+            Delivery date: ${stringDate}
         </div>
 
         <div class="cart-item-details-grid">
@@ -77,17 +86,17 @@ cart.forEach((cartItem) => {
 });
 
 // function for deliveryDates
-function deliveryOptionsHtml(matchingProduct, cartItem){
+function deliveryOptionsHtml(matchingProduct, cartItem) {
     const today = dayjs();
-    let html= '';
-    
-        
+    let html = '';
 
-    deliveryOptions.forEach((deliveryOption)=> {
-        
+
+
+    deliveryOptions.forEach((deliveryOption) => {
+
         let deliveryDate = today.add(deliveryOption.deliverDays, 'days');
         const stringDate = deliveryDate.format('dddd, MMMM D');
-        
+
         const isChecked = deliveryOption.id === cartItem.deliveryOptionId
 
         const stringPrice = deliveryOption.price === 0
@@ -95,10 +104,10 @@ function deliveryOptionsHtml(matchingProduct, cartItem){
             : `${fromatCurency(deliveryOption.price)}`
 
 
-        html +=  `
+        html += `
             <div class="delivery-option">
                 <input type="radio"
-                ${isChecked ? 'checked': ''}
+                ${isChecked ? 'checked' : ''}
                 class="delivery-option-input"
                 name="delivery-option-${matchingProduct.id}">
                 <div>
@@ -112,7 +121,7 @@ function deliveryOptionsHtml(matchingProduct, cartItem){
             </div>
 
             `
-        })
+    })
     return html;
 }
 
