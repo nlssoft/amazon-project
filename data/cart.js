@@ -12,11 +12,7 @@ if (!cart) {
         deliveryOptionId: 2
     }]
 }
-cart = cart.map((cartItem) => ({
-    ...cartItem,
-    // Keep older localStorage entries working after field rename.
-    deliveryOptionId: cartItem.deliveryOptionId ?? cartItem.deliverOptionsId ?? 1
-}));
+
 
 function saveToCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -61,3 +57,20 @@ export function removeCartitem(productId) {
     saveToCart()
 }
 
+
+export function updateDeliveryOption(productId, deliveryOptionId) {
+    let matchingItem;
+
+    cart.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+            matchingItem = cartItem;
+        }
+    });
+
+    if (!matchingItem) return;
+
+
+    matchingItem.deliveryOptionId = deliveryOptionId;
+
+    saveToCart()
+}
