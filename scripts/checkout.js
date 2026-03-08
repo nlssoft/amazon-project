@@ -1,5 +1,6 @@
-import { renderCheckOutPage } from "./checkOut/renderCheckOutPage.js";
-import { renderPaymentSummary } from "./checkOut/paymentSummary.js";
+import { renderDeliveryOptions } from "./checkOut/renderDeliveryOptions.js";
+import { renderPaymentSummary } from "./checkOut/renderPaymentSummary.js";
 
-renderCheckOutPage();
+
+renderDeliveryOptions();
 renderPaymentSummary();

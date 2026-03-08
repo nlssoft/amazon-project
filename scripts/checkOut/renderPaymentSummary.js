@@ -1,31 +1,31 @@
-import { cart } from "../../data/cart.js";
+import { Obj } from "../../data/cart.js";
 import { deliveryOptions, getDeliveryoption } from "../../data/deliveryOptions.js";
 import { getProduct } from "../../data/products.js";
 import { fromatCurency } from "../utils/money.js"
 
 
 
-export function renderPaymentSummary(){
+export function renderPaymentSummary() {
 
-    let productPriceCents = 0;
-    let shippingPriceCents = 0;
+  let productPriceCents = 0;
+  let shippingPriceCents = 0;
 
-    cart.forEach((cartItem) => {
-        const product = getProduct(cartItem.productId) 
-        productPriceCents += product.priceCents * cartItem.quantity;
+  Obj.cart.forEach((cartItem) => {
+    const product = getProduct(cartItem.productId)
+    productPriceCents += product.priceCents * cartItem.quantity;
 
-        const deliveryOption  = getDeliveryoption(cartItem.deliveryOptionId);
-        shippingPriceCents += deliveryOption.price;
+    const deliveryOption = getDeliveryoption(cartItem.deliveryOptionId);
+    shippingPriceCents += deliveryOption.price;
 
-    });
+  });
 
-    const totalBeforeTax = productPriceCents + shippingPriceCents;
-    const tax = totalBeforeTax * 0.1;
+  const totalBeforeTax = productPriceCents + shippingPriceCents;
+  const tax = totalBeforeTax * 0.1;
 
-    const total = totalBeforeTax + tax;
+  const total = totalBeforeTax + tax;
 
-    const paymentSummaryHtml = 
-        `
+  const paymentSummaryHtml =
+    `
         <div class="payment-summary-title">
           Order Summary
         </div>
@@ -64,7 +64,7 @@ export function renderPaymentSummary(){
 
         `
 
-        document.querySelector('.js-payment-summary')
-            .innerHTML = paymentSummaryHtml;
+  document.querySelector('.js-payment-summary')
+    .innerHTML = paymentSummaryHtml;
 
 }

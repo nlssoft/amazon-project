@@ -1,11 +1,11 @@
-import {cart, addToCart} from '../data/cart.js';
-import {products} from '../data/products.js';
+import { Obj } from '../data/cart.js';
+import { products } from '../data/products.js';
 import { fromatCurency } from './utils/money.js';
 
 let productsHtml = '';
 
-products.forEach((product)=> {
-    productsHtml += `
+products.forEach((product) => {
+  productsHtml += `
     
         <div class="product-container">
           <div class="product-image-container">
@@ -58,33 +58,33 @@ products.forEach((product)=> {
             Add to Cart
           </button>
         </div>
-    `;  
+    `;
 })
 
 document.querySelector('.js-products-grid').
-innerHTML = productsHtml
+  innerHTML = productsHtml
 
 
 
-function updateCartQuantity(){
-    let cartItemCount = 0;
+function updateCartQuantity() {
+  let cartItemCount = 0;
 
-     cart.forEach((cartItem)=> {
-            cartItemCount += cartItem.quantity;
-        })
-        
-        document.querySelector('.js-item-count').
-        innerHTML = cartItemCount;
+  Obj.cart.forEach((cartItem) => {
+    cartItemCount += cartItem.quantity;
+  })
+
+  document.querySelector('.js-item-count').
+    innerHTML = cartItemCount;
 }
 
 document.querySelectorAll('.js-add-to-card').
-forEach((button)=> {
-    button.addEventListener('click', ()=> {
-        const productId = button.dataset.productId;
+  forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;
 
-       addToCart(productId);
-       updateCartQuantity();
-       
+      Obj.addToCart(productId);
+      updateCartQuantity();
+
 
     })
-})
+  })
