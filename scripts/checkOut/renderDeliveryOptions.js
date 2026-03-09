@@ -1,4 +1,4 @@
-import { Obj } from "../../data/cart.js";
+import { cart } from "../../data/cart.js";
 import { products, getProduct } from "../../data/products.js";
 import { fromatCurency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
@@ -12,7 +12,7 @@ export function renderDeliveryOptions() {
 
 
     // function for all carts ui
-    Obj.cart.forEach((cartItem) => {
+    cart.cart.forEach((cartItem) => {
 
         const productId = cartItem.productId;
 
@@ -43,7 +43,7 @@ export function renderDeliveryOptions() {
                     ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                    $${fromatCurency(matchingProduct.priceCents)}
+                    $${matchingProduct.getPrice()}
                 </div>
                 <div class="product-quantity">
                     <span>
@@ -124,7 +124,7 @@ export function renderDeliveryOptions() {
         .forEach((link) => {
             link.addEventListener('click', () => {
                 const productId = link.dataset.deleteId;
-                Obj.removeFromCart(productId);
+                cart.removeFromCart(productId);
 
                 let container = document.querySelector(`.js-cart-item-container-${productId}`);
                 if (container) {
@@ -143,7 +143,7 @@ export function renderDeliveryOptions() {
     document.querySelectorAll('.js-delivery-Option-date-update').forEach((element) => {
         element.addEventListener('click', () => {
             const { productId, deliveryOptionId } = element.dataset;
-            Obj.updateDeliveryOption(productId, Number(deliveryOptionId))
+            cart.updateDeliveryOption(productId, Number(deliveryOptionId))
             renderDeliveryOptions();
             renderPaymentSummary();
         })

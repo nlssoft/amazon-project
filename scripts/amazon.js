@@ -1,5 +1,5 @@
-import { Obj } from '../data/cart.js';
-import { products } from '../data/products.js';
+import { cart } from '../data/cart.js';
+import { products} from '../data/products.js';
 import { fromatCurency } from './utils/money.js';
 
 let productsHtml = '';
@@ -19,14 +19,14 @@ products.forEach((product) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars * 10}.png">
+              src=${product.getStarUrl()}>
             <div class="product-rating-count link-primary">
               ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${fromatCurency(product.priceCents)}
+            $${product.getPrice()}
           </div>
 
           <div class="product-quantity-container">
@@ -69,7 +69,7 @@ document.querySelector('.js-products-grid').
 function updateCartQuantity() {
   let cartItemCount = 0;
 
-  Obj.cart.forEach((cartItem) => {
+  cart.cart.forEach((cartItem) => {
     cartItemCount += cartItem.quantity;
   })
 
@@ -82,7 +82,7 @@ document.querySelectorAll('.js-add-to-card').
     button.addEventListener('click', () => {
       const productId = button.dataset.productId;
 
-      Obj.addToCart(productId);
+      cart.addToCart(productId);
       updateCartQuantity();
 
 

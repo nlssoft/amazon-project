@@ -1,4 +1,4 @@
-import { Obj } from "../../data/cart.js";
+import { cart } from "../../data/cart.js";
 import { deliveryOptions, getDeliveryoption } from "../../data/deliveryOptions.js";
 import { getProduct } from "../../data/products.js";
 import { fromatCurency } from "../utils/money.js"
@@ -10,7 +10,7 @@ export function renderPaymentSummary() {
   let productPriceCents = 0;
   let shippingPriceCents = 0;
 
-  Obj.cart.forEach((cartItem) => {
+  cart.cart.forEach((cartItem) => {
     const product = getProduct(cartItem.productId)
     productPriceCents += product.priceCents * cartItem.quantity;
 
