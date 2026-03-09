@@ -1,10 +1,14 @@
-export function Obj(localStorageKey) {
+class Obj{
+    cart;
+    localStorageKey;
 
-    Obj = {
-        cart: undefined,
+    constructor(localStorageKey){
+        this.localStorageKey  = localStorageKey;
+        this.loadFromStorage();
+    }
 
         loadFromStorage() {
-            this.cart = JSON.parse(localStorage.getItem(localStorageKey));
+            this.cart = JSON.parse(localStorage.getItem(this.localStorageKey));
 
             if (!this.cart) {
                 this.cart = [{
@@ -18,11 +22,11 @@ export function Obj(localStorageKey) {
                     deliveryOptionId: 2
                 }]
             }
-        },
+        }
 
         saveToStorage() {
-            localStorage.setItem(localStorageKey, JSON.stringify(this.cart))
-        },
+            localStorage.setItem(this.localStorageKey, JSON.stringify(this.cart))
+        }
 
         addToCart(productId) {
             let matchingItem;
@@ -47,7 +51,7 @@ export function Obj(localStorageKey) {
 
             this.saveToStorage()
 
-        },
+        }
 
         removeFromCart(productId) {
             const newCart = [];
@@ -61,7 +65,7 @@ export function Obj(localStorageKey) {
             this.cart = newCart;
 
             this.saveToStorage()
-        },
+        }
 
         updateDeliveryOption(productId, deliveryOptionId) {
             let matchingItem;
@@ -79,14 +83,13 @@ export function Obj(localStorageKey) {
 
             this.saveToStorage()
         }
-
-    };
-
+}
+        
     Obj.loadFromStorage();
 
 
-}
 
+    const cart = new Obj();
 
 
 
